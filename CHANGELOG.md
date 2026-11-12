@@ -1,9 +1,15 @@
 # Changelog
 
-## Unreleased
+## 1.1.1 (2026-11-12)
+
+The first public release, on GitHub (https://github.com/ndl303/sphinx2word) and PyPI (`pip install sphinx2word`).
+The code is that of 1.1.0.
 
 - **Licence.** Still MIT; the copyright holder is now Nick Lloyd, who wrote sphinx2word in his own time. The
   README credits the projects it started from.
+- **Example and docs.** The people, places and companies in the example, the docs and the tests are invented.
+- **CI.** GitHub Actions runs the tests, publishes the documentation on GitHub Pages, and publishes version tags
+  on PyPI.
 
 ## 1.1.0 (2026-11-12)
 
