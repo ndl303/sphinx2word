@@ -1,0 +1,44 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Example: HTML",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "sphinx.cmd.build",
+            // The example document in docs/example
+            "cwd": "${workspaceFolder}/docs",
+            "args": "-b html example _build/example-html",
+        },
+        {
+            "name": "Example: Word",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "sphinx.cmd.build",
+            "cwd": "${workspaceFolder}/docs",
+            "args": "-b word example _build/word",
+            "justMyCode": false,
+        },
+        {
+            "name": "Package documentation: HTML",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "sphinx.cmd.build",
+            // The sphinx2word documentation (docs/conf.py); it also builds the example for its downloads
+            "cwd": "${workspaceFolder}/docs",
+            "args": "-b html . _build/html",
+        },
+
+        {
+            "name": "Python Debugger: Current File with Arguments",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ""
+        }
+    ]
+}

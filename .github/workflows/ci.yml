@@ -1,0 +1,64 @@
+# Tests and documentation. The documentation of main is published on GitHub Pages
+# (Settings > Pages > Source: GitHub Actions).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0            # setuptools_scm numbers the version from the tags
+      - name: Install Graphviz (dot draws the diagrams)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq graphviz
+      - uses: astral-sh/setup-uv@v6
+      - name: Install (dev and docs groups, from uv.lock)
+        run: uv sync --locked
+      - name: Tests
+        run: uv run --no-sync python -m pytest -q tests
+      - name: Build the test sample
+        run: uv run --no-sync python -m sphinx -b word -q tests/sample tests/sample/_build/word
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sample-docx
+          path: tests/sample/_build/word/*.docx
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Graphviz
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq graphviz
+      - uses: astral-sh/setup-uv@v6
+      - name: Install (docs group, from uv.lock)
+        run: uv sync --locked --no-default-groups --group docs
+      - name: Build the documentation (it also builds the example as Word and HTML)
+        run: uv run --no-sync python -m sphinx -b html -W --keep-going docs docs/_build/html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/_build/html
+
+  pages:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [test, docs]
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

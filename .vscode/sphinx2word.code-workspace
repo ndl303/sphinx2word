@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"esbonio.sphinx.buildDir": "",
+		"python.analysis.typeCheckingMode": "off",
+		"python.analysis.extraPaths": [],
+	}
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200">
+  <rect x="2" y="2" width="396" height="196" rx="16" fill="#eaf0fa" stroke="#4472c4" stroke-width="4"/>
+  <circle cx="100" cy="100" r="60" fill="#ed7d31"/>
+  <path d="M190 150 L250 50 L310 150 Z" fill="#70ad47"/>
+  <text x="200" y="185" font-family="Calibri, sans-serif" font-size="18" text-anchor="middle" fill="#1f3864">sphinx2word SVG test</text>
+</svg>

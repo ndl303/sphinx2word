@@ -1,0 +1,7 @@
+/* Pictures of Word pages on the example page */
+img.word-page {border: 1px solid #c8c8c8; box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15); margin: 0.5em}
+img.word-page {display: inline-block; vertical-align: top}
+
+/* Show code as typed: no ligatures such as --> drawn as an arrow */
+pre, code, kbd {font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0}
+a:has(> img.word-page) {text-decoration: none}

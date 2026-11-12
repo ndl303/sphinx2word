@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools>=77", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sphinx2word"
+description = "A Sphinx builder that writes Microsoft Word (.docx) documents directly, with native Word equations"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Nick Lloyd", email = "nicklloyd5577@gmail.com" }]
+requires-python = ">=3.8"
+dependencies = ["sphinx>=5"]
+dynamic = ["version"]
+classifiers = [
+    "Framework :: Sphinx :: Extension",
+    "Topic :: Documentation :: Sphinx",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+# The README links to docs/*.md with relative links, which work on GitHub and GitLab; PyPI shows these links instead.
+Homepage = "https://github.com/ndl303/sphinx2word"
+Documentation = "https://github.com/ndl303/sphinx2word/tree/main/docs"
+Changelog = "https://github.com/ndl303/sphinx2word/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+# Pillow reads the pixel size and resolution of JPEG/GIF/BMP/TIFF images (PNG and SVG are read without it).
+# cairosvg makes a PNG fallback for SVG images for Word versions older than 2016.
+images = ["pillow", "cairosvg"]
+# Optional, never installed by default: with pywin32 and Word, Word fills in the table of contents and page numbers
+# after the build, so the file opens without a prompt. Without it Word asks to update fields on first opening.
+word = ["pywin32; sys_platform == 'win32'"]
+test = ["pytest", "pillow"]
+
+[dependency-groups]
+# The development environment: `uv sync` installs sphinx2word in editable mode with both groups. pywin32 runs the
+# tests that open the output in Word. sphinxcontrib-bibtex and sphinx-argparse build the example in docs/example.
+# PyMuPDF turns PDFs into PNG pages in tests/render_with_word.py.
+dev = [
+    "pytest",
+    "pillow",
+    "cairosvg",
+    "pywin32; sys_platform == 'win32'",
+    "sphinxcontrib-bibtex",
+    "sphinx-argparse",
+    "pymupdf>=1.24.11",
+]
+# The HTML documentation in docs/ (Read the Docs installs only this group), which also builds the example.
+docs = [
+    "cairosvg>=2.7.1",
+    "myst-parser>=3.0.1",
+    "pillow>=10.4.0",
+    "pydata-sphinx-theme>=0.14.4",
+    "sphinx-argparse>=0.4.0",
+    "sphinx-copybutton>=0.5.2",
+    "sphinxcontrib-bibtex>=2.6.3",
+]
+
+[tool.uv]
+default-groups = ["dev", "docs"]
+
+[tool.setuptools]
+packages = ["sphinx2word"]
+
+[tool.setuptools_scm]
+version_file = "sphinx2word/_version.py"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+# Style checks with Ruff (`uvx ruff check`); the VS Code Ruff extension uses these settings too.
+line-length = 120
+extend-exclude = ["src", "doc", "build", "dist"]
+
+[tool.ruff.lint]
+# Only the E and W (style) rules; Ruff's wider defaults report many typing updates that would break Python 3.8.
+select = ["E", "W"]
+ignore = ["W291", "W292", "W293", "E501", "E741", "E743", "E117", "E722", "W605"]

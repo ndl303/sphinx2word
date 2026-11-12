@@ -1,0 +1,18 @@
+{
+    "python-envs.pythonProjects": [
+      {
+        "path": ".",
+        "envManager": "ms-python.python:venv",
+        "packageManager": "ms-python.python:pip"
+      }
+    ],
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/src",
+  ],
+  "python.autoComplete.extraPaths": [
+    "${workspaceFolder}/src",
+  ],
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  "python.envFile": "${workspaceFolder}/.env"
+}

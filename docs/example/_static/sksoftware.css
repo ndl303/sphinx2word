@@ -1,0 +1,13 @@
+.red {color: #C00000}
+.green {color: #00B050}
+.orange {color: #ED7D31}
+.blue {color: #0070C0}
+.purple {color: #7030A0}
+.gray {color: #808080}
+.strike {text-decoration: line-through}
+
+/* The reST shown by the rst-example directive, above its result */
+div.rst-example-source {border-left: 4px solid #f2a71b}
+
+/* Show code as typed: no ligatures such as --> drawn as an arrow */
+pre, code, kbd {font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0}
